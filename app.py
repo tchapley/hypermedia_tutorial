@@ -15,7 +15,7 @@ def index():
     return redirect('/posts')
 
 @app.route('/posts')
-def contacts():
+def posts():
     search = request.args.get('q')
     if search is not None:
         posts_set = Post.search(search)
@@ -25,11 +25,11 @@ def contacts():
     return render_template('index.html', posts=posts_set)
 
 @app.route('/posts/new', methods=['GET'])
-def contacts_new_get():
+def posts_new_get():
     return render_template('new.html', post=Post())
 
 @app.route('/posts/new', methods=['POST'])
-def contacts_new():
+def posts_new():
     p = Post(
         None,
         request.form['title'],
@@ -41,3 +41,8 @@ def contacts_new():
         return redirect('/posts')
     else:
         return render_template('new.html', post=p)
+
+@app.route('/posts/<post_id>')
+def posts_view(post_id=0):
+    post = Post.find(post_id)
+    return render_template('show.html', post=post)

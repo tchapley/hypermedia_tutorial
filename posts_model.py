@@ -69,3 +69,12 @@ class Post:
         out_arr = [p.__dict__ for p in Post.db.values()]
         with open("posts.json", "w") as f:
             json.dump(out_arr, f, indent=2)
+
+    @classmethod
+    def find(cls, id_):
+        id_ = int(id_)
+        p = cls.db.get(id_)
+        if p is not None:
+            p.errors = {}
+
+        return p
