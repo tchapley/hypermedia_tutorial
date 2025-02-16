@@ -1,3 +1,5 @@
 .hypermedia/
 
 __pycache__/
+
+posts.json

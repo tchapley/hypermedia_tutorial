@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form action="/posts/new" method="post">
+<form action="/posts/{{ post.id }}/edit" method="post">
     <fieldset>
         <legend>Post Values</legend>
         <p>
@@ -18,8 +18,13 @@
         <button>Save</button>
     </fieldset>
 </form>
+
+<form action="/posts/{{ post.id }}/delete" method="post">
+    <button>Delete Contact</button>
+</form>
+
 <p>
-    <a href="/posts/">Back</a>
+    <a href="/posts">Back</a>
 </p>
 
 {% endblock %}

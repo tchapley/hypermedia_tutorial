@@ -15,6 +15,10 @@ class Post:
     def __str__(self):
         return json.dumps(self.__dict__, ensure_ascii=False)
 
+    def update(self, title, body):
+        self.title = title
+        self.body = body
+
     def validate(self):
         if not self.title:
             self.errors['title'] = "Title Required"
@@ -35,8 +39,8 @@ class Post:
                 max_id = max(post.id for post in Post.db.values())
             self.id = max_id + 1
             Post.db[self.id] = self
-            Post.save_db()
-            return True
+        Post.save_db()
+        return True
 
     @classmethod
     def all(cls, page=1):

@@ -46,3 +46,22 @@ def posts_new():
 def posts_view(post_id=0):
     post = Post.find(post_id)
     return render_template('show.html', post=post)
+
+
+@app.route('/posts/<post_id>/edit', methods=['GET'])
+def posts_edit_get(post_id=0):
+    post = Post.find(post_id)
+    return render_template('edit.html', post=post)
+
+@app.route('/posts/<post_id>/edit', methods=['POST'])
+def posts_edit(post_id=0):
+    p = Post.find(post_id)
+    p.update(
+        request.form['title'],
+        request.form['body']
+    )
+    if p.save():
+        flash("Updated Contact!")
+        return redirect('/posts/' + str(post_id))
+    else:
+        return render_template('edit.html', post=p)
