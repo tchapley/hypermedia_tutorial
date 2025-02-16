@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+  <form action="/posts" method="get" class="tool-bar">
+    <label for="search">Search Term</label>
+    <input id="search" type="search" name="q"
+      value="{{ request.args.get('q') or '' }}" />
+    <input type="submit" value="Search"/>
+  </form>
+  <table>
+    <thead>
+        <tr>
+            <th>Title <th>Created <th/>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.title}}</td>
+            <td>{{ post.created }}</td>
+            <td>
+                <a href="/posts/{{ post.id }}/edit">Edit</a>
+                <a href="/posts/{{ post.id }}">View</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  <p>
+    <a href="/posts/new">Add Post</a>
+  </p>
+
+{% endblock %}

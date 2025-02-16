@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<form action="/posts/new" method="post">
+    <fieldset>
+        <legend>Post Values</legend>
+        <p>
+            <label for="title">Title</label>
+            <input name="title" id="title" type="text" placeholder="Title" value="{{ post.title or '' }}" />
+            <span class="error">{{ post.errors['title'] }}</span>
+        </p>
+        <p>
+            <label for="body">Body</label>
+            <textarea name="body" id="body" rows="5" cols="80" placeholder="Body">{{ post.body or '' }}</textarea>
+            <span class="error">{{ post.errors['body'] }}</span>
+        <p>
+    </fieldset>
+    <button>Save</button>
+    <p>
+        <a href="/posts/">Back</a>
+    </p>
+</form>
+
+{% endblock %}

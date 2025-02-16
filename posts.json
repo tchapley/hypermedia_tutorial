@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "This is a test post",
+    "body": "This is a test post",
+    "created": "2025-02-15",
+    "errors": {}
+  },
+  {
+    "id": 2,
+    "title": "1",
+    "body": "test",
+    "created": "2025-02-16",
+    "errors": {}
+  },
+  {
+    "id": 3,
+    "title": "2",
+    "body": "test",
+    "created": "2025-02-16",
+    "errors": {}
+  },
+  {
+    "id": 4,
+    "title": "3",
+    "body": "test",
+    "created": "2025-02-16",
+    "errors": {}
+  }
+]
