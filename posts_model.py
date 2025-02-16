@@ -42,6 +42,10 @@ class Post:
         Post.save_db()
         return True
 
+    def delete(self):
+        del Post.db[self.id]
+        Post.save_db()
+
     @classmethod
     def all(cls, page=1):
         page = int(page)

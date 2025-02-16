@@ -65,3 +65,10 @@ def posts_edit(post_id=0):
         return redirect('/posts/' + str(post_id))
     else:
         return render_template('edit.html', post=p)
+
+@app.route('/posts/<post_id>/delete', methods=['POST'])
+def posts_delete(post_id=0):
+    post = Post.find(post_id)
+    post.delete()
+    flash("Deleted Contact!")
+    return redirect('/posts')
