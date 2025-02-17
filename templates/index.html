@@ -4,8 +4,11 @@
 
   <form action="/posts" method="get" class="tool-bar">
     <label for="search">Search Term</label>
-    <input id="search" type="search" name="q"
-      value="{{ request.args.get('q') or '' }}" />
+    <input id="search" type="search" name="q" 
+        value="{{ request.args.get('q') or '' }}" 
+        hx-get="/posts" 
+        hx-trigger="search, keyup delay:200ms changed" 
+        hx-target="tbody" />
     <input type="submit" value="Search"/>
   </form>
   <table>
@@ -16,15 +19,27 @@
     </thead>
     <tbody>
         {% for post in posts %}
-        <tr>
-            <td>{{ post.title}}</td>
-            <td>{{ post.created }}</td>
-            <td>
-                <a href="/posts/{{ post.id }}/edit">Edit</a>
-                <a href="/posts/{{ post.id }}">View</a>
-            </td>
-        </tr>
+            <tr>
+                <td>{{ post.title}}</td>
+                <td>{{ post.created }}</td>
+                <td>
+                    <a href="/posts/{{ post.id }}/edit">Edit</a>
+                    <a href="/posts/{{ post.id }}">View</a>
+                </td>
+            </tr>
         {% endfor %}
+        {% if posts|length == 2 %}
+            <tr>
+                <td colspan ="3" style="text-align: center">
+                    <button hx-target="closest tr"
+                        hx-swap="outerHTML"
+                        hx-select="tbody > tr"
+                        hx-get="/posts?page={{ page + 1 }}">
+                        Load More
+                    </button>
+                </td>
+            <tr>
+        {% endif %}
     </tbody>
   </table>
   <p>

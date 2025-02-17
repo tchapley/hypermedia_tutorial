@@ -17,12 +17,15 @@ def index():
 @app.route('/posts')
 def posts():
     search = request.args.get('q')
+    page = int(request.args.get('page', 1))
     if search is not None:
         posts_set = Post.search(search)
+        if request.headers.get('HX-Trigger') == 'search':
+            return render_template('rows.html', posts=posts_set)
     else:
-        posts_set = Post.all()
+        posts_set = Post.all(page)
 
-    return render_template('index.html', posts=posts_set)
+    return render_template('index.html', posts=posts_set, page=page)
 
 @app.route('/posts/new', methods=['GET'])
 def posts_new_get():
@@ -66,9 +69,16 @@ def posts_edit(post_id=0):
     else:
         return render_template('edit.html', post=p)
 
-@app.route('/posts/<post_id>/delete', methods=['POST'])
+@app.route('/posts/<post_id>', methods=['DELETE'])
 def posts_delete(post_id=0):
     post = Post.find(post_id)
     post.delete()
     flash("Deleted Contact!")
-    return redirect('/posts')
+    return redirect('/posts', 303)
+
+@app.route('/posts/<post_id>/title', methods=['GET'])
+def posts_title_get(post_id=0):
+    p = Post.find(post_id)
+    p.title = request.args.get('title')
+    p.validate()
+    return p.errors.get('title') or ""

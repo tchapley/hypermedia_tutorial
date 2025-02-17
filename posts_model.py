@@ -1,6 +1,6 @@
 import json
 
-PAGE_SIZE = 5
+PAGE_SIZE = 2
 
 class Post:
     db = {}
@@ -33,9 +33,8 @@ class Post:
         if not self.validate():
             return False
         if self.id is None:
-            if len(Post.db) == 0:
-                max_id == 1
-            else:
+            max_id = 0
+            if len(Post.db) > 0:
                 max_id = max(post.id for post in Post.db.values())
             self.id = max_id + 1
             Post.db[self.id] = self
